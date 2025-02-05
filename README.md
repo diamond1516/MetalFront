@@ -1,40 +1,21 @@
-# gravity-ui-vite-example
+# 🚀 My Vite + TypeScript + React + Tailwind v5 + Gravity UI Template
 
-Vite template with: typescript, sass and Gravity UI.
+A modern and lightweight template for building React applications with **Vite**, **TypeScript**, **Tailwind CSS v5**, and **Gravity UI**.
 
-## ⚗️ Technologies list
+## ⚡ Features
 
-- [Gravity UI](https://gravity-ui.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Sass](https://sass-lang.com/)
-- [ESlint](https://eslint.org/) & [Prettier](https://prettier.io/)
+- 🚀 **Vite** – Fast build and hot module replacement
+- ⚛ **React** – Component-based UI development
+- 🛠 **TypeScript** – Type-safe development
+- 🎨 **Tailwind CSS v5** – Utility-first styling
+- 🌌 **Gravity UI** – Beautiful prebuilt UI components
+- ✅ **ESLint & Prettier** – Linting and code formatting
 
-# 🚀 Start using it
+## 📦 Installation
 
-To use this template for your app you can run:
-
-```sh
-npx degit gravity-ui/gravity-ui-vite-example#main my-project
-cd my-project
-
-npm install
-npm run dev
-```
-
-or
-
-```sh
-yarn degit gravity-ui-vite-example#main my-project
-cd my-project
-
-npm install
-npm run dev
-```
-
-# 📖 Learn More
-
-This package includes scripts and configuration used by [Vite](https://vitejs.dev/).\
-Please refer to its documentation:
-
-- [Getting Started](https://vitejs.dev/guide/) – How to create a new app.
-- [User Guide](https://vitejs.dev/) – How to develop apps bootstrapped with Vite.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/lazywk/reactjs-gravityui-template.git
+   cd reactjs-gravityui-template
+   npm install
+   npm run dev
