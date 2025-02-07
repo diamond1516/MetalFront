@@ -1,50 +1,59 @@
-import {REQUIRED_MESSAGE} from '@/constants/components';
-import {cn} from '@/lib/utils';
-import {TextInput, TextInputProps} from '@gravity-ui/uikit';
-import {FieldValues, Path, UseFormReturn} from 'react-hook-form';
-import {ClassNameValue} from 'tailwind-merge';
-
+import { REQUIRED_MESSAGE } from "@/constants/components"
+import { cn } from "@/lib/utils"
+import { TextInput, TextInputProps } from "@gravity-ui/uikit"
+import { ReactNode } from "react"
+import { FieldValues, Path, UseFormReturn } from "react-hook-form"
+import { ClassNameValue } from "tailwind-merge"
 interface IProps<IForm extends FieldValues> {
-    form: UseFormReturn<IForm>;
-    name: Path<IForm>;
-    label?: string;
-    required?: boolean;
-    fullWidth?: boolean;
-    wrapperClassName?: ClassNameValue;
+    methods: UseFormReturn<IForm>
+    name: Path<IForm>
+    label?: string
+    required?: boolean
+    fullWidth?: boolean
+    wrapperClassName?: ClassNameValue
 }
 
 export default function FormInput<IForm extends FieldValues>({
-    form,
+    methods,
     name,
     label,
     fullWidth = false,
     wrapperClassName,
+    required = false,
     ...props
 }: IProps<IForm> & TextInputProps) {
     const {
         register,
-        formState: {errors},
-    } = form;
+        formState: { errors },
+    } = methods
 
     const reg = register(name, {
         required: {
-            value: true,
-            message: `${label ?? ''} ${REQUIRED_MESSAGE}`,
+            value: required,
+            message: `${label ?? ""} ${REQUIRED_MESSAGE}`,
         },
-    });
-
-    console.log(cn('flex flex-col gap-1 w-full'));
+    })
 
     return (
-        <fieldset className={cn('flex flex-col gap-2 w-xs', wrapperClassName)}>
+        <fieldset
+            className={cn(
+                "flex flex-col gap-2 w-xs",
+                wrapperClassName,
+                fullWidth && "w-full",
+            )}
+        >
             <TextInput
                 type="text"
                 error={!!errors[name]}
-                errorMessage={errors[name] ? errors[name].message?.toString() : ''}
+                errorMessage={
+                    typeof errors[name]?.message === "string" ?
+                        (errors[name]?.message as ReactNode)
+                    :   ""
+                }
                 placeholder={label}
                 {...props}
                 {...reg}
             />
         </fieldset>
-    );
+    )
 }
