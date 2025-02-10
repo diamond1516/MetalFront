@@ -8,11 +8,11 @@ type Values = {
     age: string
 }
 
-export default function Form() {
+const Form = () => {
     const form = useForm<Values>()
 
     function handleSubmit(values: Values) {
-        console.log(values)
+        console.log("values", values)
     }
 
     return (
@@ -33,3 +33,5 @@ export default function Form() {
         </form>
     )
 }
+
+export default Form

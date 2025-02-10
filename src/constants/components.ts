@@ -1,1 +1,1 @@
-export const REQUIRED_MESSAGE = "kiritish majburiy"
+export const REQUIRED_MESSAGE = "field is required"

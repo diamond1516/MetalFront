@@ -32,11 +32,12 @@ export default function FormSelect<IForm extends FieldValues>({
                     {...props}
                     {...field}
                     value={
-                        typeof field.value == "string" ?
+                        Array.isArray(field.value) ? field.value
+                        : field.value ?
                             [field.value]
-                        :   field.value
+                        :   []
                     }
-                    error={!!fieldState.error}
+                    validationState={fieldState.error ? "invalid" : undefined}
                     errorMessage={fieldState.error?.message}
                     multiple={multiple}
                     onUpdate={(v) =>
