@@ -5,11 +5,21 @@ import ReactDOM from "react-dom/client"
 import "./styles/globals.scss"
 import "./styles/styles.css"
 
-import App from "./App"
+import { RouterProvider, createRouter } from "@tanstack/react-router"
+import { routeTree } from "./routeTree.gen"
+
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+    interface Register {
+        router: typeof router
+    }
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
     <React.StrictMode>
-        <App />
+        <RouterProvider router={router} />
     </React.StrictMode>,
 )
