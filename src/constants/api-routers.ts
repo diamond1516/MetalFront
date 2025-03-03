@@ -1,9 +1,12 @@
 import routeController from "@/lib/route-controller"
 
-const ROUTERS = routeController({
+const ROUTES = {
     AUTH: {
-        LOGIN: "",
+        LOGIN: null,
+        REGISTER: null,
     },
-})
+}
 
-export default ROUTERS
+const API_ROUTES = routeController(ROUTES, "http://localhost:8000/api/v1")
+
+export default API_ROUTES

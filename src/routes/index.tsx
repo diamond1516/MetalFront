@@ -1,4 +1,4 @@
-import ROUTERS from "@/constants/api-routers"
+import API_ROUTES from "@/constants/api-routers"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({
@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 })
 
 function RouteComponent() {
-    console.log(ROUTERS.AUTH.BASE)
+    console.log(API_ROUTES.AUTH.REGISTER)
 
     return <div className="p-4 bg-gray-100">Hello "/"! </div>
 }

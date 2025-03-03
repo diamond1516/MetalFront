@@ -1,25 +1,47 @@
-const routeController = (
-    obj: Record<string, any>,
+type RouteObject<T> = {
+    BASE: string
+} & {
+    [K in keyof T]: T[K] extends object ? RouteObject<T[K]> : string
+}
+
+const routeController = <T extends Record<string, any>>(
+    obj: T,
     prefix = "",
-): Record<string, any> => {
-    const basePath = prefix || prefix
+    appendSlash = false,
+): RouteObject<T> => {
+    const formattedPrefix = prefix.replace(/\/+/g, "/")
+
     return {
-        BASE: basePath,
+        BASE: formattedPrefix,
         ...Object.fromEntries(
             Object.entries(obj).map(([key, value]) => {
-                const newPrefix =
-                    prefix ?
-                        `${prefix}/${key.toLowerCase()}`
-                    :   key.toLowerCase()
+                const newSegment =
+                    typeof value === "string" ? value : (
+                        key.toLowerCase().replace("_", "-")
+                    )
+                let newPrefix = `${formattedPrefix}/${newSegment}`.replace(
+                    /\/+/g,
+                    "/",
+                )
+
+                if (appendSlash) {
+                    newPrefix =
+                        newPrefix.endsWith("/") ? newPrefix : newPrefix + "/"
+                }
+
                 return [
                     key,
-                    typeof value === "object" ?
-                        routeController(value, newPrefix)
+                    (
+                        typeof value === "object" &&
+                        !Array.isArray(value) &&
+                        value !== null
+                    ) ?
+                        routeController(value, newPrefix, appendSlash)
                     :   newPrefix,
                 ]
             }),
         ),
-    }
+    } as RouteObject<T>
 }
 
 export default routeController
