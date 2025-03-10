@@ -12,10 +12,7 @@
 
 import { Route as rootRoute } from "./routes/__root"
 import { Route as MainImport } from "./routes/_main"
-import { Route as AboutImport } from "./routes/about"
-import { Route as BlogIdImport } from "./routes/blog/$id"
-import { Route as BlogIndexImport } from "./routes/blog/index"
-import { Route as IndexImport } from "./routes/index"
+import { Route as MainIndexImport } from "./routes/_main/index"
 import { Route as LoginImport } from "./routes/login"
 
 // Create/Update Routes
@@ -26,58 +23,26 @@ const LoginRoute = LoginImport.update({
     getParentRoute: () => rootRoute,
 } as any)
 
-const AboutRoute = AboutImport.update({
-    id: "/about",
-    path: "/about",
-    getParentRoute: () => rootRoute,
-} as any)
-
 const MainRoute = MainImport.update({
     id: "/_main",
     getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const MainIndexRoute = MainIndexImport.update({
     id: "/",
     path: "/",
-    getParentRoute: () => rootRoute,
-} as any)
-
-const BlogIndexRoute = BlogIndexImport.update({
-    id: "/blog/",
-    path: "/blog/",
-    getParentRoute: () => rootRoute,
-} as any)
-
-const BlogIdRoute = BlogIdImport.update({
-    id: "/blog/$id",
-    path: "/blog/$id",
-    getParentRoute: () => rootRoute,
+    getParentRoute: () => MainRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
     interface FileRoutesByPath {
-        "/": {
-            id: "/"
-            path: "/"
-            fullPath: "/"
-            preLoaderRoute: typeof IndexImport
-            parentRoute: typeof rootRoute
-        }
         "/_main": {
             id: "/_main"
             path: ""
             fullPath: ""
             preLoaderRoute: typeof MainImport
-            parentRoute: typeof rootRoute
-        }
-        "/about": {
-            id: "/about"
-            path: "/about"
-            fullPath: "/about"
-            preLoaderRoute: typeof AboutImport
             parentRoute: typeof rootRoute
         }
         "/login": {
@@ -87,85 +52,63 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof LoginImport
             parentRoute: typeof rootRoute
         }
-        "/blog/$id": {
-            id: "/blog/$id"
-            path: "/blog/$id"
-            fullPath: "/blog/$id"
-            preLoaderRoute: typeof BlogIdImport
-            parentRoute: typeof rootRoute
-        }
-        "/blog/": {
-            id: "/blog/"
-            path: "/blog"
-            fullPath: "/blog"
-            preLoaderRoute: typeof BlogIndexImport
-            parentRoute: typeof rootRoute
+        "/_main/": {
+            id: "/_main/"
+            path: "/"
+            fullPath: "/"
+            preLoaderRoute: typeof MainIndexImport
+            parentRoute: typeof MainImport
         }
     }
 }
 
 // Create and export the route tree
 
+interface MainRouteChildren {
+    MainIndexRoute: typeof MainIndexRoute
+}
+
+const MainRouteChildren: MainRouteChildren = {
+    MainIndexRoute: MainIndexRoute,
+}
+
+const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
+
 export interface FileRoutesByFullPath {
-    "/": typeof IndexRoute
-    "": typeof MainRoute
-    "/about": typeof AboutRoute
+    "": typeof MainRouteWithChildren
     "/login": typeof LoginRoute
-    "/blog/$id": typeof BlogIdRoute
-    "/blog": typeof BlogIndexRoute
+    "/": typeof MainIndexRoute
 }
 
 export interface FileRoutesByTo {
-    "/": typeof IndexRoute
-    "": typeof MainRoute
-    "/about": typeof AboutRoute
     "/login": typeof LoginRoute
-    "/blog/$id": typeof BlogIdRoute
-    "/blog": typeof BlogIndexRoute
+    "/": typeof MainIndexRoute
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute
-    "/": typeof IndexRoute
-    "/_main": typeof MainRoute
-    "/about": typeof AboutRoute
+    "/_main": typeof MainRouteWithChildren
     "/login": typeof LoginRoute
-    "/blog/$id": typeof BlogIdRoute
-    "/blog/": typeof BlogIndexRoute
+    "/_main/": typeof MainIndexRoute
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath
-    fullPaths: "/" | "" | "/about" | "/login" | "/blog/$id" | "/blog"
+    fullPaths: "" | "/login" | "/"
     fileRoutesByTo: FileRoutesByTo
-    to: "/" | "" | "/about" | "/login" | "/blog/$id" | "/blog"
-    id:
-        | "__root__"
-        | "/"
-        | "/_main"
-        | "/about"
-        | "/login"
-        | "/blog/$id"
-        | "/blog/"
+    to: "/login" | "/"
+    id: "__root__" | "/_main" | "/login" | "/_main/"
     fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-    IndexRoute: typeof IndexRoute
-    MainRoute: typeof MainRoute
-    AboutRoute: typeof AboutRoute
+    MainRoute: typeof MainRouteWithChildren
     LoginRoute: typeof LoginRoute
-    BlogIdRoute: typeof BlogIdRoute
-    BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-    IndexRoute: IndexRoute,
-    MainRoute: MainRoute,
-    AboutRoute: AboutRoute,
+    MainRoute: MainRouteWithChildren,
     LoginRoute: LoginRoute,
-    BlogIdRoute: BlogIdRoute,
-    BlogIndexRoute: BlogIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -178,31 +121,22 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_main",
-        "/about",
-        "/login",
-        "/blog/$id",
-        "/blog/"
+        "/login"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
-    },
     "/_main": {
-      "filePath": "_main.tsx"
-    },
-    "/about": {
-      "filePath": "about.tsx"
+      "filePath": "_main.tsx",
+      "children": [
+        "/_main/"
+      ]
     },
     "/login": {
       "filePath": "login.tsx"
     },
-    "/blog/$id": {
-      "filePath": "blog/$id.tsx"
-    },
-    "/blog/": {
-      "filePath": "blog/index.tsx"
+    "/_main/": {
+      "filePath": "_main/index.tsx",
+      "parent": "/_main"
     }
   }
 }

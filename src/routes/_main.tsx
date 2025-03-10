@@ -1,9 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { Link, Outlet, createRootRoute } from "@tanstack/react-router"
+import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 
-export const Route = createFileRoute("/_main")({
-    component: RouteComponent,
+export const Route = createRootRoute({
+    component: () => (
+        <>
+            <div className="p-2 flex gap-2">
+                <Link to="/" className="[&.active]:font-bold">
+                    Home
+                </Link>{" "}
+            </div>
+            <hr />
+            <Outlet />
+            <TanStackRouterDevtools />
+        </>
+    ),
 })
-
-function RouteComponent() {
-    return <div>Hello "/_main"!</div>
-}
