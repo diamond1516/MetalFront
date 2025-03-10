@@ -1,4 +1,5 @@
 import { Button, Card, TextInput } from "@gravity-ui/uikit"
+import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/login")({
     component: Login,
