@@ -23,7 +23,10 @@ function Login() {
                         placeholder="Parol"
                         name="password"
                     />
-                    <Button className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+                    <Button
+                        view="flat-danger"
+                        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                    >
                         Kirish
                     </Button>
                 </form>
