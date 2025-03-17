@@ -1,11 +1,14 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router"
-import { TanStackRouterDevtools } from "@tanstack/router-devtools"
+import AppSidebarProvider from "@/components/sidebar/sidebar-provider"
+import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_main")({
-    component: () => (
-        <>
-            <Outlet />
-            <TanStackRouterDevtools />
-        </>
-    ),
+    component: RouteComponent,
 })
+
+function RouteComponent() {
+    return (
+        <div className="flex h-screen">
+            <AppSidebarProvider />
+        </div>
+    )
+}
