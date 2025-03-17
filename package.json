@@ -30,7 +30,7 @@
         "lint:js": "eslint --ext .js,.jsx,.ts,.tsx .",
         "lint:styles": "stylelint '{styles,src}/**/*.scss'",
         "lint:prettier": "prettier --check '**/*.md'",
-        "format:prettier": "prettier --write '**/*.{ts,tsx}'",
+        "clear": "prettier --write '**/*.{ts,tsx}'",
         "lint": "npm run lint:js && npm run lint:styles && npm run lint:prettier",
         "test": "exit 0"
     },

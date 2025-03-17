@@ -4,12 +4,12 @@ A modern and lightweight template for building React applications with **Vite**,
 
 ## ⚡ Features
 
--   🚀 **Vite** – Fast build and hot module replacement
--   ⚛ **React** – Component-based UI development
--   🛠 **TypeScript** – Type-safe development
--   🎨 **Tailwind CSS v5** – Utility-first styling
--   🌌 **Gravity UI** – Beautiful prebuilt UI components
--   ✅ **ESLint & Prettier** – Linting and code formatting
+- 🚀 **Vite** – Fast build and hot module replacement
+- ⚛ **React** – Component-based UI development
+- 🛠 **TypeScript** – Type-safe development
+- 🎨 **Tailwind CSS v5** – Utility-first styling
+- 🌌 **Gravity UI** – Beautiful prebuilt UI components
+- ✅ **ESLint & Prettier** – Linting and code formatting
 
 ## 📦 Installation
 
